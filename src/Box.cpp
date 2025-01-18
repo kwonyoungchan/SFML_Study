@@ -86,8 +86,16 @@ void Box::BoxMoveAlgorithm(sf::RenderWindow& window)
 
 void Box::AddVelocity(float addX, float addY)
 {
-	if (abs(velocity.x) <= maxSpeed) velocity.x += addX;
-	if (abs(velocity.y) <= maxSpeed) velocity.y += addY;
+	if (abs(velocity.x) < maxSpeed) velocity.x += addX;
+	else if (abs(velocity.x) >= maxSpeed)
+	{
+		velocity.x = velocity.x > 0 ? maxSpeed : -1 * maxSpeed;
+	}
+	if (abs(velocity.y) < maxSpeed) velocity.y += addY;
+	else if (abs(velocity.y) >= maxSpeed)
+	{
+		velocity.y = velocity.y > 0 ? maxSpeed : -1 * maxSpeed;
+	}
 }
 
 
@@ -126,6 +134,10 @@ void Box::VelocityAlgorithm()
 			velocity.y = 0;
 		}
 	}
+
+	velocity.x = abs(velocity.x) < 0.0000001f ? 0 : velocity.x;
+	velocity.y = abs(velocity.y) < 0.0000001f ? 0 : velocity.y;
+
 
 	flagR = false;
 	flagL = false;

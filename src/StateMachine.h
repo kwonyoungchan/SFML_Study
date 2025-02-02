@@ -32,9 +32,6 @@ private:
 	StateRef _newState;
 
 	EState currentState;
-	bool _isRemoving;
-	bool _isAdding;
-	bool _isReplacing;
 
 };
 

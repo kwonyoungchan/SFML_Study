@@ -49,7 +49,6 @@ void CGame::Run()
 
 		currentTime = newTime;
 		accumulator += frameTime;
-		std::cout << accumulator << std::endl;
 
 		while (accumulator >= dt)
 		{

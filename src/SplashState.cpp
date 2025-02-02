@@ -3,6 +3,8 @@
 #include <sstream>
 #include <iostream>
 
+#include "MainMenuState.h"
+
 CSplashState::CSplashState(GameDataRef data)
 {
 	_data = data;
@@ -42,7 +44,7 @@ void CSplashState::Update(float dt)
 	if (this->_clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME)
 	{
 		// Switch to the Main Menu
-		std::cout << " Go to Main Menu" << std::endl;
+		this->_data->machine.AddState(StateRef(new CMainMenuState(_data)), true);
 	}
 }
 

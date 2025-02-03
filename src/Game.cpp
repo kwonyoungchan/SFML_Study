@@ -38,6 +38,7 @@ void CGame::Run()
 	{
 		// 상태 확인 
 		this->_data->machine.ProcessStateChanges();
+		std::cout << "current State Size is: " << this->_data->machine.GetCurrentStateAmount() << std::endl;
 		// 진행 시간 체크 
 		newTime = this->_clock.getElapsedTime().asSeconds();
 		// fps 체크 

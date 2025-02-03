@@ -9,15 +9,20 @@
 
 #define MAIN_MENU_BACKGROUND_FILEPATH "../resources/Background.png"
 
-#define Game_BACKGROUND_FILEPATH "../resources/Background.png"
+#define GAME_BACKGROUND_FILEPATH "../resources/Background.png"
+
+#define PAUSE_BACKGROUND_FILEPATH "../resources/Background.png"
+
 
 #define MAIN_MENU_TITLE_PATH "../resources/Title.png"
 
 #define MAIN_MENU_PLAY_BUTTON "../resources/PlayButton.png"
+#define PAUSE_BUTTON "../resources/Pause.png"
+#define RESUME_BUTTON "../resources/ResumeButton.png"
+#define HOME_BUTTON "../resources/HomeButton.png"
 
 #define MAIN_MENU_PLAY_OUTER "../resources/background.png"
 
-#define PAUSE_BUTTON "../resources/Pause.png"
 
 #define X_PIECE_FILEPATH ""
 #define O_PIECE_FILEPATH ""

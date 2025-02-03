@@ -3,6 +3,8 @@
 #include "Definitions.h"
 #include <iostream>
 
+#include "PauseState.h"
+
 CGameState::CGameState(GameDataRef data) :_data(data)
 {
 }
@@ -44,7 +46,7 @@ void CGameState::HandleInput()
 		}
 		if (this->_data->input.IsSpriteClicked(*_pauseButton, sf::Mouse::Button::Left, this->_data->window))
 		{
-			std::cout << "Pause The Game" << std::endl;
+			this->_data->machine.AddState(StateRef(new CPauseState(_data)), false);
 		}
 	}
 }

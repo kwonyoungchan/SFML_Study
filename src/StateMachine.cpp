@@ -71,3 +71,8 @@ StateRef& CStateMachine::GetActiveState()
 {
 	return this->_states.top();
 }
+
+int CStateMachine::GetCurrentStateAmount()
+{
+	return this->_states.size();
+}

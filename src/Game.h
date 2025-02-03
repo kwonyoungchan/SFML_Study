@@ -5,6 +5,7 @@
 #include "StateMachine.h"
 #include "InputManager.h"
 #include "AssetManager.h"
+#include <queue>
 
 typedef struct ST_GameData
 {

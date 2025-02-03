@@ -25,6 +25,7 @@ public:
 	void ProcessStateChanges();
 
 	StateRef& GetActiveState();
+	int GetCurrentStateAmount();
 
 private:
 	std::stack<StateRef> _states;

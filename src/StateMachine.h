@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <stack>
-
+#include <queue>
 #include "State.h"
 
 typedef std::unique_ptr<CState> StateRef;
@@ -31,8 +31,10 @@ private:
 	std::stack<StateRef> _states;
 
 	StateRef _newState;
+	std::queue<EState> stateCalls;
+	std::queue<StateRef> StateBuffer;
 
 	EState currentState;
-
+	int removeCall;
 };
 

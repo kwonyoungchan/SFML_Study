@@ -18,5 +18,11 @@ private:
 	sf::Sprite* _resumeButton;
 	sf::Sprite* _homeButton;
 
+
+	// CState을(를) 통해 상속됨
+	void Pause() override;
+
+	void Resume() override;
+
 };
 

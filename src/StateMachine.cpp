@@ -2,20 +2,35 @@
 
 void CStateMachine::AddState(StateRef newState, bool isReplacing)
 {
-
+	// newState가 유효한지 체크한다.
+	if (newState == NULL) return;
 	if (!this->_states.empty() && this->_states.top() == newState) return;
-	this->currentState = isReplacing ? EState::REPLACE : EState::ADD;
-	this->_newState = std::move(newState);
+	// state를 buffer에 넣는다.
+	if (isReplacing)
+	{
+		stateCalls.push(EState::REPLACE);
+		StateBuffer.push(std::move(newState));
+	}
+	else
+	{
+		stateCalls.push(EState::ADD);
+		StateBuffer.push(std::move(newState));
+	}
 }
 
 void CStateMachine::RemoveState()
 {
-	//this->_isRemoving = true;
-	this->currentState = EState::REMOVE;
+	stateCalls.push(EState::REMOVE);
 }
 
 void CStateMachine::ProcessStateChanges()
 { 
+	// state call 확인 
+	// state를 확인 
+	// state에 맞는 로직 실행 
+	if (stateCalls.empty()) return;
+	currentState = stateCalls.front();
+	stateCalls.pop();
 	switch (currentState)
 	{
 		case EState::NONE:
@@ -31,12 +46,12 @@ void CStateMachine::ProcessStateChanges()
 				_states.top()->Pause();
 			}
 			// 새로운 상태를 추가한다.
-			this->_states.push(std::move(this->_newState));
+			this->_states.push(std::move(this->StateBuffer.front()));
 			// 상태 초기화 시작
 			this->_states.top()->Init();
 			// 현재 상태를 NONE 으로 설정한다. 
 			this->currentState = EState::NONE;
-
+			this->StateBuffer.pop();
 			break;
 		}
 		case EState::REPLACE:
@@ -46,10 +61,11 @@ void CStateMachine::ProcessStateChanges()
 			if (this->_states.empty()) break;
 			// 상태가 있으면 현재 상태와 새로운 상태를 교체한다. 
 			this->_states.pop();
-			this->_states.push(std::move(this->_newState));
+			this->_states.push(std::move(this->StateBuffer.front()));
 			this->_states.top()->Init();
 			// 현재 상태를 NONE 으로 설정한다. 
 			this->currentState = EState::NONE;
+			this->StateBuffer.pop();
 			break;
 		}
 		case EState::REMOVE:

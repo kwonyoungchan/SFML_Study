@@ -19,5 +19,9 @@ private:
 
 	int turn;
 	int gameState;
+
+	// CState을(를) 통해 상속됨
+	void Pause() override;
+	void Resume() override;
 };
 

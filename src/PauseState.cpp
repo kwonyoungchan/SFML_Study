@@ -46,14 +46,26 @@ void CPauseState::HandleInput()
 				this->_data->window.close();
 			}
 		}
-		if (this->_data->input.IsSpriteClicked(*_resumeButton, sf::Mouse::Button::Left, this->_data->window))
+		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
 		{
-			this->_data->machine.RemoveState();
-		}
-		if (this->_data->input.IsSpriteClicked(*_homeButton, sf::Mouse::Button::Left, this->_data->window))
-		{
-			this->_data->machine.RemoveState();
-			this->_data->machine.AddState(StateRef(new CMainMenuState(_data)),true);
+			if (mousePressed->button == sf::Mouse::Button::Left)
+			{
+				sf::Vector2f currentMousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(this->_data->window));
+				sf::FloatRect resumeButtonBound = this->_resumeButton->getGlobalBounds();
+				sf::FloatRect homeButtonBound = this->_homeButton->getGlobalBounds();
+
+
+				if (resumeButtonBound.contains(currentMousePosition))
+				{
+					this->_data->machine.RemoveState();
+				}
+				if (homeButtonBound.contains(currentMousePosition))
+				{
+					this->_data->machine.RemoveState();
+					this->_data->machine.AddState(StateRef(new CMainMenuState(_data)), true);
+				}
+
+			}
 		}
 	}
 }
@@ -71,4 +83,12 @@ void CPauseState::Draw(float dt)
 	this->_data->window.draw(*_homeButton);
 
 	this->_data->window.display();
+}
+
+void CPauseState::Pause()
+{
+}
+
+void CPauseState::Resume()
+{
 }

@@ -55,3 +55,11 @@ void CSplashState::Draw(float dt)
 	this->_data->window.display();
 
 }
+
+void CSplashState::Pause()
+{
+}
+
+void CSplashState::Resume()
+{
+}

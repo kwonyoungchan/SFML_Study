@@ -62,9 +62,19 @@ void CMainMenuState::HandleInput()
 				this->_data->window.close();
 			}
 		}
-		if (this->_data->input.IsSpriteClicked(*_playButton, sf::Mouse::Button::Left, this->_data->window))
+		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
 		{
-			this->_data->machine.AddState(StateRef(new CGameState(_data)),true);
+			if (mousePressed->button == sf::Mouse::Button::Left)
+			{
+				sf::Vector2f currentMousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(this->_data->window));
+				sf::FloatRect puseButtonBound = this->_playButton->getGlobalBounds();
+				
+				if (puseButtonBound.contains(currentMousePosition))
+				{
+					this->_data->machine.AddState(StateRef(new CGameState(_data)), true);
+				}
+
+			}
 		}
 	}
 }
@@ -84,4 +94,12 @@ void CMainMenuState::Draw(float dt)
 	this->_data->window.display();
 
 
+}
+
+void CMainMenuState::Pause()
+{
+}
+
+void CMainMenuState::Resume()
+{
 }

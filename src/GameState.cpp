@@ -44,9 +44,19 @@ void CGameState::HandleInput()
 				this->_data->window.close();
 			}
 		}
-		if (this->_data->input.IsSpriteClicked(*_pauseButton, sf::Mouse::Button::Left, this->_data->window))
+		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
 		{
-			this->_data->machine.AddState(StateRef(new CPauseState(_data)), false);
+			if (mousePressed->button == sf::Mouse::Button::Left)
+			{
+				sf::Vector2f currentMousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(this->_data->window));
+				sf::FloatRect puseButtonBound = this->_pauseButton->getGlobalBounds();
+
+				if (puseButtonBound.contains(currentMousePosition))
+				{
+					this->_data->machine.AddState(StateRef(new CPauseState(_data)), false);
+				}
+
+			}
 		}
 	}
 }
@@ -65,4 +75,12 @@ void CGameState::Draw(float dt)
 	this->_data->window.display();
 
 
+}
+
+void CGameState::Pause()
+{
+}
+
+void CGameState::Resume()
+{
 }

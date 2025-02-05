@@ -5,8 +5,9 @@
 
 #include "PauseState.h"
 
-CGameState::CGameState(GameDataRef data) :_data(data)
+CGameState::CGameState(GameDataRef data)
 {
+	_data = data;
 }
 
 CGameState::~CGameState()
@@ -35,28 +36,14 @@ void CGameState::Init()
 
 void CGameState::HandleInput()
 {
+	CMainState::HandleInput();
 	while (const std::optional _event = this->_data->window.pollEvent())
 	{
-		if (const auto* keyPressed = _event->getIf<sf::Event::KeyPressed>())
-		{
-			if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-			{
-				this->_data->window.close();
-			}
-		}
+
+		
 		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
 		{
-			if (mousePressed->button == sf::Mouse::Button::Left)
-			{
-				sf::Vector2f currentMousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(this->_data->window));
-				sf::FloatRect puseButtonBound = this->_pauseButton->getGlobalBounds();
 
-				if (puseButtonBound.contains(currentMousePosition))
-				{
-					this->_data->machine.AddState(StateRef(new CPauseState(_data)), false);
-				}
-
-			}
 		}
 	}
 }
@@ -84,3 +71,34 @@ void CGameState::Pause()
 void CGameState::Resume()
 {
 }
+
+void CGameState::OnKeyboardPressed(const sf::Event::KeyPressed* pressedEvent)
+{
+}
+
+
+void CGameState::OnKeboardReleased(const sf::Event::KeyReleased* releasedEvent)
+{
+}
+
+
+void CGameState::OnMouseButtonPressed(const sf::Event::MouseButtonPressed* pressedEvent, const sf::Vector2f pressedPosition)
+{
+	if (pressedEvent->button == sf::Mouse::Button::Left)
+	{
+		sf::FloatRect puseButtonBound = this->_pauseButton->getGlobalBounds();
+
+		if (puseButtonBound.contains(pressedPosition))
+		{
+			this->_data->machine.AddState(StateRef(new CPauseState(_data)), false);
+		}
+	}
+}
+
+
+void CGameState::OnMouseButtonReleased(const sf::Event::MouseButtonReleased* releasedEvent, const sf::Vector2f releasedPosition)
+{
+}
+
+
+

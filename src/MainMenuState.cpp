@@ -5,8 +5,9 @@
 
 #include "GameState.h"
 
-CMainMenuState::CMainMenuState(GameDataRef data):_data(data)
+CMainMenuState::CMainMenuState(GameDataRef data)
 {
+	_data = data;
 }
 
 CMainMenuState::~CMainMenuState()
@@ -53,30 +54,7 @@ void CMainMenuState::Init()
 
 void CMainMenuState::HandleInput()
 {
-	while (const std::optional _event = this->_data->window.pollEvent())
-	{
-		if (const auto* keyPressed = _event->getIf<sf::Event::KeyPressed>())
-		{
-			if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-			{
-				this->_data->window.close();
-			}
-		}
-		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
-		{
-			if (mousePressed->button == sf::Mouse::Button::Left)
-			{
-				sf::Vector2f currentMousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(this->_data->window));
-				sf::FloatRect puseButtonBound = this->_playButton->getGlobalBounds();
-				
-				if (puseButtonBound.contains(currentMousePosition))
-				{
-					this->_data->machine.AddState(StateRef(new CGameState(_data)), true);
-				}
-
-			}
-		}
-	}
+	CMainState::HandleInput();
 }
 
 void CMainMenuState::Update(float dt)
@@ -88,7 +66,6 @@ void CMainMenuState::Draw(float dt)
 	this->_data->window.clear();
 	this->_data->window.draw(*_background);
 	this->_data->window.draw(*_playButton);
-	//this->_data->window.draw(*_playButtonOuter);
 	this->_data->window.draw(*_title);
 
 	this->_data->window.display();
@@ -103,3 +80,33 @@ void CMainMenuState::Pause()
 void CMainMenuState::Resume()
 {
 }
+
+void CMainMenuState::OnKeyboardPressed(const sf::Event::KeyPressed* pressedEvent)
+{
+}
+
+
+void CMainMenuState::OnKeboardReleased(const sf::Event::KeyReleased* releasedEvent)
+{
+}
+
+
+void CMainMenuState::OnMouseButtonPressed(const sf::Event::MouseButtonPressed* pressedEvent, const sf::Vector2f pressedPosition)
+{
+	if (pressedEvent->button == sf::Mouse::Button::Left)
+	{
+		sf::FloatRect playButtonBound = this->_playButton->getGlobalBounds();
+
+		if (playButtonBound.contains(pressedPosition))
+		{
+			this->_data->machine.AddState(StateRef(new CGameState(_data)), true);
+		}
+
+	}
+}
+
+void CMainMenuState::OnMouseButtonReleased(const sf::Event::MouseButtonReleased* releasedEvent, const sf::Vector2f releasedPosition)
+{
+}
+
+

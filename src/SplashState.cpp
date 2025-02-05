@@ -26,17 +26,7 @@ void CSplashState::Init()
 
 void CSplashState::HandleInput()
 {
-	while (const std::optional event = this->_data->window.pollEvent() )
-	{
-		if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>())
-		{
-			if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-			{
-				this->_data->window.close();
-			}
-			
-		}
-	}
+	CMainState::HandleInput();
 }
 
 void CSplashState::Update(float dt)
@@ -61,5 +51,25 @@ void CSplashState::Pause()
 }
 
 void CSplashState::Resume()
+{
+}
+
+void CSplashState::OnKeyboardPressed(const sf::Event::KeyPressed* pressedEvent)
+{
+	if (pressedEvent->scancode == sf::Keyboard::Scancode::Escape)
+	{
+		this->_data->window.close();
+	}
+}
+
+void CSplashState::OnKeboardReleased(const sf::Event::KeyReleased* releasedEvent)
+{
+}
+
+void CSplashState::OnMouseButtonPressed(const sf::Event::MouseButtonPressed* pressedEvent, const sf::Vector2f pressedPosition)
+{
+}
+
+void CSplashState::OnMouseButtonReleased(const sf::Event::MouseButtonReleased* releasedEvent, const sf::Vector2f releasedPosition)
 {
 }

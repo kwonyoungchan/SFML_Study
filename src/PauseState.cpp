@@ -4,8 +4,9 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 
-CPauseState::CPauseState(GameDataRef data) :_data(data)
+CPauseState::CPauseState(GameDataRef data)
 {
+	_data = data;
 }
 
 CPauseState::~CPauseState()
@@ -37,37 +38,7 @@ void CPauseState::Init()
 
 void CPauseState::HandleInput()
 {
-	while (const std::optional _event = this->_data->window.pollEvent())
-	{
-		if (const auto* keyPressed = _event->getIf<sf::Event::KeyPressed>())
-		{
-			if (keyPressed->scancode == sf::Keyboard::Scancode::Escape)
-			{
-				this->_data->window.close();
-			}
-		}
-		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
-		{
-			if (mousePressed->button == sf::Mouse::Button::Left)
-			{
-				sf::Vector2f currentMousePosition = static_cast<sf::Vector2f>(sf::Mouse::getPosition(this->_data->window));
-				sf::FloatRect resumeButtonBound = this->_resumeButton->getGlobalBounds();
-				sf::FloatRect homeButtonBound = this->_homeButton->getGlobalBounds();
-
-
-				if (resumeButtonBound.contains(currentMousePosition))
-				{
-					this->_data->machine.RemoveState();
-				}
-				if (homeButtonBound.contains(currentMousePosition))
-				{
-					this->_data->machine.RemoveState();
-					this->_data->machine.AddState(StateRef(new CMainMenuState(_data)), true);
-				}
-
-			}
-		}
-	}
+	CMainState::HandleInput();
 }
 
 void CPauseState::Update(float dt)
@@ -90,5 +61,38 @@ void CPauseState::Pause()
 }
 
 void CPauseState::Resume()
+{
+}
+
+void CPauseState::OnKeyboardPressed(const sf::Event::KeyPressed* pressedEvent)
+{
+}
+
+void CPauseState::OnKeboardReleased(const sf::Event::KeyReleased* releasedEvent)
+{
+}
+
+void CPauseState::OnMouseButtonPressed(const sf::Event::MouseButtonPressed* pressedEvent, const sf::Vector2f pressedPosition)
+{
+	if (pressedEvent->button == sf::Mouse::Button::Left)
+	{
+
+		sf::FloatRect resumeButtonBound = this->_resumeButton->getGlobalBounds();
+		sf::FloatRect homeButtonBound = this->_homeButton->getGlobalBounds();
+
+		if (resumeButtonBound.contains(pressedPosition))
+		{
+			this->_data->machine.RemoveState();
+		}
+		if (homeButtonBound.contains(pressedPosition))
+		{
+			this->_data->machine.RemoveState();
+			this->_data->machine.AddState(StateRef(new CMainMenuState(_data)), true);
+		}
+
+	}
+}
+
+void CPauseState::OnMouseButtonReleased(const sf::Event::MouseButtonReleased* releasedEvent, const sf::Vector2f releasedPosition)
 {
 }

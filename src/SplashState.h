@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "MainState.h"
+#include "BaseState.h"
 #include "Game.h"
-class CSplashState :public CMainState
+class CSplashState :public CBaseState
 {
 public:
 	CSplashState(GameDataRef data);

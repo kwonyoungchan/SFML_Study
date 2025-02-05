@@ -26,11 +26,13 @@ void CPauseState::Init()
 	this->_resumeButton	 = new sf::Sprite(this->_data->assets.GetTexture("Resume Button"));
 	this->_homeButton = new sf::Sprite(this->_data->assets.GetTexture("Home Button"));
 
-	const sf::Vector2f resumeButtonPosition
-		= sf::Vector2f((this->_data->window.getSize().x) - (this->_resumeButton->getLocalBounds().size.x / 2), (this->_data->window.getSize().y/3) - (this->_resumeButton->getLocalBounds().size.y / 2));
+	const sf::Vector2f resumeButtonPosition= sf::Vector2f(
+			(SCREEN_WIDTH/2) - (this->_resumeButton->getGlobalBounds().size.x / 2), 
+			(SCREEN_HEIGHT /3) - (this->_resumeButton->getLocalBounds().size.y / 2));
 
-	const sf::Vector2f homeButtonPosition
-		= sf::Vector2f((this->_data->window.getSize().x) - (this->_homeButton->getLocalBounds().size.x / 2), (this->_data->window.getSize().y / 3*2) - (this->_homeButton->getLocalBounds().size.y / 2));
+	const sf::Vector2f homeButtonPosition= sf::Vector2f(
+			(SCREEN_WIDTH/2) - (this->_homeButton->getGlobalBounds().size.x / 2),
+			(SCREEN_HEIGHT / 3*2) - (this->_homeButton->getLocalBounds().size.y / 2));
 
 	this->_resumeButton->setPosition(resumeButtonPosition);
 	this->_homeButton->setPosition(homeButtonPosition);
@@ -38,7 +40,7 @@ void CPauseState::Init()
 
 void CPauseState::HandleInput()
 {
-	CMainState::HandleInput();
+	CBaseState::HandleInput();
 }
 
 void CPauseState::Update(float dt)

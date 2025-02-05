@@ -18,17 +18,15 @@ CGameState::~CGameState()
 
 void CGameState::Init()
 {
-	gameState = STATE_PLAYING;
-	turn = PLAYER_PIECE;
-
+	this->_data->assets.LoadTexture("GameBackground",GAME_BACKGROUND_FILEPATH);
 	this->_data->assets.LoadTexture("Pause Button", PAUSE_BUTTON);
 
-	_background = new sf::Sprite(this->_data->assets.GetTexture("Background"));
+	_background = new sf::Sprite(this->_data->assets.GetTexture("GameBackground"));
 	_pauseButton = new sf::Sprite(this->_data->assets.GetTexture("Pause Button"));
 
 	const sf::Vector2f pauseButtonPosition =
 		sf::Vector2f(
-			this->_data->window.getSize().x - _pauseButton->getLocalBounds().size.x,
+			this->_data->window.getSize().x - (_pauseButton->getLocalBounds().size.x),
 			_pauseButton->getPosition().y);
 	_pauseButton->setPosition(pauseButtonPosition);
 }
@@ -36,16 +34,7 @@ void CGameState::Init()
 
 void CGameState::HandleInput()
 {
-	CMainState::HandleInput();
-	while (const std::optional _event = this->_data->window.pollEvent())
-	{
-
-		
-		if (const auto* mousePressed = _event->getIf<sf::Event::MouseButtonPressed>())
-		{
-
-		}
-	}
+	CBaseState::HandleInput();
 }
 
 void CGameState::Update(float dt)

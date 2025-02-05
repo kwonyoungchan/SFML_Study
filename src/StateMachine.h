@@ -13,6 +13,7 @@ enum EState
 	ADD,
 	REPLACE
 };
+
 class CStateMachine
 {
 public:
@@ -32,9 +33,8 @@ private:
 
 	StateRef _newState;
 	std::queue<EState> stateCalls;
-	std::queue<StateRef> StateBuffer;
+	std::queue<StateRef> stateBuffer;
 
-	EState currentState;
-	int removeCall;
+	EState currentStateCall;
 };
 

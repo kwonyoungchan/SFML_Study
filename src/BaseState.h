@@ -3,11 +3,11 @@
 #include "State.h"
 #include "Game.h"
 
-class CMainState: public CState
+class CBaseState: public CState
 {
 public:
-	CMainState() {}
-	~CMainState() {}
+	CBaseState() {}
+	~CBaseState() {}
 	// CState을(를) 통해 상속됨
 	void Init() override;
 	void HandleInput() override;

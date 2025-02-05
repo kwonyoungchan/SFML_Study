@@ -26,7 +26,7 @@ void CSplashState::Init()
 
 void CSplashState::HandleInput()
 {
-	CMainState::HandleInput();
+	CBaseState::HandleInput();
 }
 
 void CSplashState::Update(float dt)

@@ -1,11 +1,11 @@
-#include "MainState.h"
+#include "BaseState.h"
 
 
-void CMainState::Init()
+void CBaseState::Init()
 {
 }
 
-void CMainState::HandleInput()
+void CBaseState::HandleInput()
 {
 	if (this->_data == nullptr) return;
 
@@ -45,19 +45,19 @@ void CMainState::HandleInput()
 	}
 }
 
-void CMainState::Update(float dt)
+void CBaseState::Update(float dt)
 {
 }
 
-void CMainState::Draw(float dt)
+void CBaseState::Draw(float dt)
 {
 }
 
-void CMainState::Pause()
+void CBaseState::Pause()
 {
 }
 
-void CMainState::Resume()
+void CBaseState::Resume()
 {
 }
 

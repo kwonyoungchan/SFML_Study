@@ -1,9 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "MainState.h"
+#include "BaseState.h"
 #include "Game.h"
 
-class CMainMenuState: public CMainState
+class CMainMenuState: public CBaseState
 {
 public:
 	CMainMenuState(GameDataRef data);
@@ -17,7 +17,6 @@ private:
 	sf::Sprite* _background;
 	sf::Sprite* _playButton;
 	sf::Sprite* _title;
-	sf::Sprite* _playButtonOuter;
 
 
 	// CState을(를) 통해 상속됨
